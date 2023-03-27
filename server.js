@@ -66,6 +66,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+app.get("/", (req, res) => {
+  res.send("Đây là server của ứng dụng Library-Management-System"); // hoặc gửi file HTML của bạn
+});
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);

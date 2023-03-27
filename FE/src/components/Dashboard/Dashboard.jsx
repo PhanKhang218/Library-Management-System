@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 // import NavBar from "../NavBar/NavBar";
 
 import Sidebar from "../Sidebar/Sidebar";
+import Main from "../Main/Main";
 import "./Dashboard.css";
 // import { motion } from "framer-motion";
 // const cardVariants = {
@@ -29,9 +30,9 @@ export default function Dashboard() {
   }, []);
   return (
     <div>
-      {/* <NavBar /> */}
       <div className="dashboard">
-        <Sidebar />
+        {/* <Sidebar /> */}
+        <Main />
       </div>
     </div>
   );
