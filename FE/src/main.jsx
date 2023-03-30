@@ -10,7 +10,7 @@ const options = {
   // you can also just use 'bottom center'
   position: positions.TOP_RIGHT,
   timeout: 2000,
-  offset: "100px",
+  offset: 20,
   // you can also just use 'scale'
 
   transition: transitions.SCALE,

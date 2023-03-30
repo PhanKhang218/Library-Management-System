@@ -8,19 +8,7 @@ function App() {
         <Routes>
           {publicRoutes.map((route, index) => {
             const Page = route?.component;
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  route?.path == "/student/:id" ? (
-                    <Page role={"teacher"} />
-                  ) : (
-                    <Page />
-                  )
-                }
-              />
-            );
+            return <Route key={index} path={route.path} element={<Page />} />;
           })}
         </Routes>
       </div>

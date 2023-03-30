@@ -45,15 +45,15 @@ function Main() {
 
   return (
     <div>
-      {/* <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form> */}
+      <form id="search-form" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
       <div id="main">
         {movies.map((movie) => (
           <div key={movie.id} className="movie">
