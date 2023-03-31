@@ -1,11 +1,15 @@
-const app = require("./app");
-const http = require("http");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const authRoutes = require("./routes/authRoutes");
 
-const port = process.env.PORT || 5001;
-app.set("port", port);
+const app = express();
+const port = 5001;
 
-const server = http.createServer(app);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-server.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+app.use("/api", authRoutes);
+
+app.listen(port, () => console.log(`Server started on port ${port}`));

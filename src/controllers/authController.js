@@ -1,17 +1,15 @@
-const express = require("express");
-const router = express.Router();
 const db = require("../database/dbConnector");
 
-router.post("/register", (req, res) => {
+exports.registerUser = (req, res) => {
   const { username, email, fullname, password, confirmpassword } = req.body;
 
   console.log("username:", username);
   console.log("email:", email);
-  console.log("fullname:", email);
+  console.log("fullname:", fullname);
   console.log("password:", password);
   console.log("confirmpassword:", confirmpassword);
 
-  // Kiểm tra xem tất cả các trường đã được nhập đầy đủ hay không
+  // check enter full fields
   if (!username || !email || !fullname || !password || !confirmpassword) {
     res
       .status(400)
@@ -19,7 +17,7 @@ router.post("/register", (req, res) => {
     return;
   }
 
-  // Kiểm tra xem username đã tồn tại hay chưa
+  // Check username exists
   const checkQuery = "SELECT * FROM USER WHERE username = ?";
   db.query(checkQuery, [username], (err, results) => {
     if (err) {
@@ -37,7 +35,9 @@ router.post("/register", (req, res) => {
         message: "Tên đăng nhập đã tồn tại, vui lòng đặt tên đăng nhập khác",
       });
       return;
-    } // Kiểm tra xem mật khẩu và xác nhận mật khẩu có khớp hay không
+    }
+
+    // check password
     if (password !== confirmpassword) {
       res.status(400).json({
         statusCode: 400,
@@ -46,9 +46,9 @@ router.post("/register", (req, res) => {
       return;
     }
 
-    // Tiến hành thêm mới user vào CSDL
+    // add user vào CSDL
     const insertQuery =
-      "INSERT INTO USER (username, email, fullname, password,confirmpassword) VALUES (?, ?, ?, ?,?)";
+      "INSERT INTO USER (username, email, fullname, password,confirmpassword) VALUES (?, ?, ?, ?, ?)";
     db.query(
       insertQuery,
       [username, email, fullname, password, confirmpassword],
@@ -66,4 +66,4 @@ router.post("/register", (req, res) => {
       }
     );
   });
-});
+};
