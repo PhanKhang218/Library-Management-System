@@ -22,7 +22,7 @@ export default function Login() {
       return;
     }
     axios
-      .post("http://localhost:3000/login", { username, password })
+      .post("http://localhost:5001/api/login", { username, password })
       .then((response) => {
         alert.success("Đăng nhập thành công");
         navigate("/main");

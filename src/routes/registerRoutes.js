@@ -1,30 +1,8 @@
 const express = require("express");
-const mysql = require("mysql2");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const router = express.Router();
+const db = require("../database/dbConnector");
 
-const app = express();
-
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Phan-khang21082001",
-  database: "library1",
-});
-
-db.connect((err) => {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("connected as id " + db.threadId);
-});
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-
-app.post("/api/register", (req, res) => {
+router.post("/register", (req, res) => {
   const { username, email, fullname, password, confirmpassword } = req.body;
 
   console.log("username:", username);
@@ -89,7 +67,3 @@ app.post("/api/register", (req, res) => {
     );
   });
 });
-
-const port = 5001;
-
-app.listen(port, () => console.log(`Server started on port ${port}`));
