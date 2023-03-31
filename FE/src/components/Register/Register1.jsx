@@ -1,58 +1,15 @@
-const [account, set_user] = useState({
-  username: "",
-  email: "",
-  fullname: "",
-  password: "",
-  confirmPassword: "",
-});
-
-let navigate = useNavigate();
-const alert = useAlert();
-const handleChange = (e) => {
-  const name = e.target.name;
-  const value = e.target.value;
-  set_user((prevState) => {
-    return {
-      ...prevState,
-      [name]: value,
-    };
-  });
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const result = await axios.post(
-    "http://localhost:5001/api/register",
-    account,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const user = await result.data;
-  const { statusCode, msg } = user;
-  localStorage.setItem("account", JSON.stringify(user[0]));
-  if (statusCode === 400 || statusCode === 500) {
-    alert.error(msg);
-  } else {
-    navigate("/dashboard");
-    alert.success("Đăng ký thành công!");
-  }
-};
-
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-import { getUser } from "./../../helpers/getUser";
-import "./login.css";
-export default function Login(props) {
+import "./Register.css";
+const RegisterForm = () => {
   const [account, set_user] = useState({
-    PassWord: "",
-    UserName: "",
+    username: "",
+    email: "",
+    fullname: "",
+    password: "",
+    confirmPassword: "",
   });
 
   let navigate = useNavigate();
@@ -67,10 +24,11 @@ export default function Login(props) {
       };
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await axios.post(
-      "http://127.0.0.1:8000/api/login",
+      "http://localhost:5001/api/register",
       account,
       {
         headers: {
@@ -78,16 +36,19 @@ export default function Login(props) {
         },
       }
     );
+
     const user = await result.data;
     const { statusCode, msg } = user;
     localStorage.setItem("account", JSON.stringify(user[0]));
-    if (statusCode === 400) {
+
+    if (statusCode === 400 || statusCode === 500) {
       alert.error(msg);
     } else {
-      navigate("/dashboard");
-      alert.success("Đăng nhập thành công!");
+      navigate("/");
+      alert.success("Đăng ký thành công!");
     }
   };
+
   return (
     <div>
       <div className="container">
@@ -95,61 +56,65 @@ export default function Login(props) {
           <div className="header-left">
             <div className="logo">
               <img src="./img/logo.svg" alt="#" />
-              <span className="title-header">IPTC</span>
+              <span className="title-header">LMS</span>
             </div>
           </div>
           <div className="header-right"></div>
         </div>
         <div className="content-login">
           <div className="content-left-login">
-            <form className="form" id="form-1">
-              <img src="./img/join.svg" alt="" />
-              <h3 className="heading">WELCOME</h3>
-              <div className="spacer" />
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-                <input
-                  id="UserName"
-                  name="UserName"
-                  type="text"
-                  placeholder="VD: abc@gmail.com"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-                <span className="form-message" />
+            <form>
+              <div className="register-title">
+                <p className="register-account">Đăng kí tài khoản</p>
+                <div className="members">
+                  <span style={{ paddingRight: "10px" }}>
+                    Đã là thành viên?
+                  </span>
+                  <a href="/" className="sign-up">
+                    Đăng nhập
+                  </a>
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="password" className="form-label">
-                  Mật khẩu
-                </label>
-                <input
-                  id="password"
-                  name="PassWord"
-                  type="password"
-                  placeholder="Nhập mật khẩu"
-                  className="form-control"
-                  onChange={handleChange}
-                />
-                <span className="form-message" />
-              </div>
+              <input
+                type="text"
+                placeholder="Tên đăng nhập"
+                onChange={handleChange}
+              />
+              <input type="email" placeholder="Email" onChange={handleChange} />
 
+              <input
+                type="text"
+                placeholder="Họ và tên"
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                placeholder="Mật khẩu"
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                id="confirm-password"
+                placeholder="Xác nhận mật khẩu"
+                onChange={handleChange}
+              />
               <button
+                className="button-submit"
+                type="submit"
                 onClick={handleSubmit}
-                className="form-submit"
-                id="login-btn"
               >
-                Đăng nhập
+                Đăng kí
               </button>
             </form>
           </div>
           <div className="content-right-login">
-            <img src="./img/img-large.png" alt="#" />
+            <img src="./img/library_bg.avif" alt="#" />
           </div>
         </div>
         <div className="footer" />
       </div>
     </div>
   );
-}
+};
+
+export default RegisterForm;

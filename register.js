@@ -35,7 +35,9 @@ app.post("/api/register", (req, res) => {
 
   // Kiểm tra xem tất cả các trường đã được nhập đầy đủ hay không
   if (!username || !email || !fullname || !password || !confirmpassword) {
-    res.status(400).json({ message: "Vui lòng nhập đầy đủ thông tin" });
+    res
+      .status(400)
+      .json({ statusCode: 400, message: "Vui lòng nhập đầy đủ thông tin" });
     return;
   }
 
@@ -44,20 +46,25 @@ app.post("/api/register", (req, res) => {
   db.query(checkQuery, [username], (err, results) => {
     if (err) {
       console.error(err);
-      res.status(500).json({ message: "Có lỗi xảy ra, vui lòng thử lại sau" });
+      res.status(500).json({
+        statusCode: 500,
+        message: "Có lỗi xảy ra, vui lòng thử lại sau",
+      });
       return;
     }
 
     if (results.length > 0) {
       res.status(400).json({
+        statusCode: 400,
         message: "Tên đăng nhập đã tồn tại, vui lòng đặt tên đăng nhập khác",
       });
       return;
     } // Kiểm tra xem mật khẩu và xác nhận mật khẩu có khớp hay không
     if (password !== confirmpassword) {
-      res
-        .status(400)
-        .json({ message: "Mật khẩu không khớp, vui lòng nhập lại" });
+      res.status(400).json({
+        statusCode: 400,
+        message: "Mật khẩu không khớp, vui lòng nhập lại",
+      });
       return;
     }
 
@@ -72,7 +79,10 @@ app.post("/api/register", (req, res) => {
           console.error(err);
           res
             .status(500)
-            .json({ message: "Có lỗi xảy ra, vui lòng thử lại sau" });
+            .json({
+              statusCode: 500,
+              message: "Có lỗi xảy ra, vui lòng thử lại sau",
+            });
           return;
         }
         console.log(result);

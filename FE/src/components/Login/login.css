@@ -190,3 +190,13 @@ html {
 .spacer {
   margin-top: 36px;
 }
+
+.forgot-pass {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.abc:hover {
+  font-weight: bold;
+}

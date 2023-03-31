@@ -77,7 +77,26 @@ export default function Login() {
                 />
                 <span className="form-message" />
               </div>
-
+              <div className="forgot-pass">
+                <div>
+                  <a
+                    className="abc"
+                    style={{ color: "black", textDecoration: "underline" }}
+                    href="/register"
+                  >
+                    Đăng kí?
+                  </a>
+                </div>
+                <div>
+                  <a
+                    className="abc"
+                    style={{ color: "black", textDecoration: "underline" }}
+                    href="#"
+                  >
+                    Quên mật khẩu
+                  </a>
+                </div>
+              </div>
               <button
                 onClick={handleSubmit}
                 className="form-submit"

@@ -4,20 +4,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Register.css";
 const RegisterForm = () => {
-  const [account, set_user] = useState({
+  const [account, setAccount] = useState({
     username: "",
     email: "",
     fullname: "",
     password: "",
-    confirmPassword: "",
+    confirmpassword: "",
   });
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const alert = useAlert();
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    set_user((prevState) => {
+    setAccount((prevState) => {
       return {
         ...prevState,
         [name]: value,
@@ -27,24 +28,34 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await axios.post(
-      "http://localhost:5001/api/register",
-      account,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    try {
+      const result = await axios.post(
+        "http://localhost:5001/api/register",
+        account,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const user = await result.data;
-    const { statusCode, msg } = user;
-    localStorage.setItem("account", JSON.stringify(user[0]));
-    if (statusCode === 400 || statusCode === 500) {
-      alert.error(msg);
-    } else {
-      navigate("/");
-      alert.success("Đăng ký thành công!");
+      const user = result.data;
+      const { statusCode, msg } = user;
+      localStorage.setItem("account", JSON.stringify(user));
+
+      if (statusCode === 400 || statusCode === 500) {
+        alert.error(msg);
+      } else {
+        navigate("/");
+        alert.success("Đăng ký thành công!");
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        alert.error(error.response.data.message);
+      } else {
+        alert.error("Có lỗi xảy ra!");
+      }
     }
   };
 
@@ -77,24 +88,32 @@ const RegisterForm = () => {
               <input
                 type="text"
                 placeholder="Tên đăng nhập"
+                name="username"
                 onChange={handleChange}
               />
-              <input type="email" placeholder="Email" onChange={handleChange} />
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                onChange={handleChange}
+              />
 
               <input
-                type="fullname"
+                type="text"
                 placeholder="Họ và tên"
+                name="fullname"
                 onChange={handleChange}
               />
               <input
                 type="password"
                 placeholder="Mật khẩu"
+                name="password"
                 onChange={handleChange}
               />
               <input
                 type="password"
-                id="confirm-password"
                 placeholder="Xác nhận mật khẩu"
+                name="confirmpassword"
                 onChange={handleChange}
               />
               <button
