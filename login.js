@@ -20,9 +20,9 @@ db.connect((err) => {
   console.log("connected as id " + db.threadId);
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cors());
 
 // định nghĩa API đăng nhập
 app.post("/api/login", async (req, res) => {
@@ -48,12 +48,10 @@ app.post("/api/login", async (req, res) => {
       ]);
 
     if (rows.length === 0) {
-      return res
-        .status(401)
-        .json({
-          statusCode: 401,
-          message: "Tên đăng nhập hoặc mật khẩu không hợp lệ!",
-        });
+      return res.status(401).json({
+        statusCode: 401,
+        message: "Tên đăng nhập hoặc mật khẩu không hợp lệ!",
+      });
     }
 
     // trả về phản hồi thành công
@@ -64,6 +62,6 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-const port = 5001;
+// const port = 5001;
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+// app.listen(port, () => console.log(`Server started on port ${port}`));
