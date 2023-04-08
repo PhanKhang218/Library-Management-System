@@ -1,0 +1,8 @@
+.movie-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  font-size: 40px;
+}
