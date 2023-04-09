@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-const APIURL = "http://localhost:5001/api/books";
+import { useNavigate } from "react-router-dom";
 import "./Main.css";
+
+const APIURL = "http://localhost:5001/api/books";
 function Main(props) {
   const [books, setBook] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBook(APIURL);
@@ -16,24 +19,20 @@ function Main(props) {
 
     setBook(respData);
   }
+  const handleClick = () => {
+    navigate("book-content");
+  };
+
   return (
     <div>
-      <form id="search-form">
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button type="submit">Search</button>
-      </form>
       <div id="main">
         {books.map((book) => (
           <div key={book.id} className="movie">
-            <img alt={book.image} src={book.image} />
+            <img src={book.image} onClick={() => handleClick()} />
             <div className="movie-info">
               <h3>{book.title}</h3>
             </div>
-            <div className="overview">
+            <div className="overview" style={{ textAlign: "justify" }}>
               <h3>Overview:</h3>
               <p>{book.overview}</p>
             </div>

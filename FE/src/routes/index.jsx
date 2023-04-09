@@ -1,3 +1,4 @@
+import Content from "../components/Content/Content";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Login from "../components/Login/Login";
 import RegisterForm from "../components/Register/Register";
@@ -11,6 +12,7 @@ const publicRoutes = [
   { path: "/", component: Login },
   { path: "/register", component: RegisterForm },
   { path: "/trailer", component: Trailer },
+  { path: "/main/book-content", component: Content },
 ];
 
 const privateRoutes = [];

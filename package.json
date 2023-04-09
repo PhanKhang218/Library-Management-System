@@ -8,6 +8,9 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
     "nodemon": "^2.0.21",
+    "react-html-parser": "^2.0.2",
+    "react-scroll": "^1.8.9",
+    "react-smooth-scroll": "^0.1.0",
     "sequelize": "^6.30.0"
   },
   "name": "library-management-system",

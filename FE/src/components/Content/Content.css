@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("/FE/public/img/banner2.jpg");
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+
+#book {
+  padding-top: 100px;
+  width: 60%;
+  margin: 0 auto;
+  font-size: 30px;
+  text-align: justify;
+}
+.bg-container {
+  background-image: url("/FE/public/img/banner2.jpg");
+  height: 100vh; /* thay đổi chiều cao tùy ý */
+}
+.book-title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 40px;
+  padding: 30px 0;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+.btn-next {
+  font-weight: bold;
+}
+
+.btn-next:hover {
+  background-color: #ff6651;
+}
