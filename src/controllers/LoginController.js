@@ -12,15 +12,14 @@ exports.loginUser = async (req, res) => {
     return;
   }
 
-  // kiểm tra thông tin đăng nhập
-
+  // Kiểm tra thông tin đăng nhập
   try {
     const [rows, fields] = await db
       .promise()
-      .execute("SELECT * FROM User WHERE username = ? AND password = ?", [
-        username,
-        password,
-      ]);
+      .execute(
+        "SELECT id, username, fullname, email FROM User WHERE username = ? AND password = ?",
+        [username, password]
+      );
 
     if (rows.length === 0) {
       return res.status(401).json({
@@ -29,8 +28,17 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    // Respone user
-    res.json({ message: "Đăng nhập thành công" });
+    // Trả về thông tin người dùng
+    const user = rows[0];
+    res.json([
+      {
+        id: user.id,
+        username: user.username,
+        fullname: user.fullname,
+        email: user.email,
+        message: "Đăng nhập thành công",
+      },
+    ]);
   } catch (err) {
     console.log(err);
     res.status(500).json({ statusCode: 500, message: "Lỗi máy chủ" });

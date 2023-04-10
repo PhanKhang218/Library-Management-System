@@ -26,7 +26,8 @@ export default function Login() {
       .then((response) => {
         alert.success("Đăng nhập thành công");
         navigate("/main");
-        console.log(response.data);
+        console.log(response);
+        localStorage.setItem("account", JSON.stringify(response.data));
       })
       .catch((error) => {
         alert.error("Tên đăng nhập hoặc mật khẩu không chính xác");

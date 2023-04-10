@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Main.css";
+import "./Book.css";
 
 const APIURL = "http://localhost:5001/api/books";
 function Main(props) {
+  let [users, setUser] = useState({});
   const [books, setBook] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem("account"));
+    setUser({ ...users });
+  }, []);
   useEffect(() => {
     getBook(APIURL);
   }, []);
@@ -20,7 +25,7 @@ function Main(props) {
     setBook(respData);
   }
   const handleClick = (bookId) => {
-    navigate(`/main/book-content/${bookId}`, { state: { bookId } });
+    navigate(`/book/book-content/${bookId}`, { state: { bookId } });
   };
 
   return (

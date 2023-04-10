@@ -37,3 +37,12 @@ body {
 .btn-next:hover {
   background-color: #ff6651;
 }
+.btn-back {
+  font-weight: bold;
+}
+.btn-back:hover {
+  background-color: #ff6651;
+}
+p {
+  padding: 20px;
+}

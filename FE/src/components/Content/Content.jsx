@@ -3,6 +3,7 @@ import ReactHtmlParser from "react-html-parser";
 import "./Content.css";
 import { animateScroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const APIURL = "http://localhost:5001/api/books";
 
@@ -13,6 +14,7 @@ function Content() {
 
   const location = useLocation();
   const bookId = location.state.bookId;
+  const navigate = useNavigate();
 
   console.log(bookId);
   useEffect(() => {
@@ -61,6 +63,10 @@ function Content() {
     <div>Loading...</div>
   );
 
+  const handleClick = () => {
+    navigate("/main");
+  };
+
   return (
     <div className="bg-container">
       <div id="book">{renderBook}</div>
@@ -82,6 +88,9 @@ function Content() {
           }
         >
           Next
+        </button>
+        <button className="btn-back" onClick={() => handleClick()}>
+          Back
         </button>
       </div>
     </div>
