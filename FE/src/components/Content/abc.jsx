@@ -1,85 +1,76 @@
+//
 import React, { useState, useEffect } from "react";
 import ReactHtmlParser from "react-html-parser";
 import "./Content.css";
 import { animateScroll } from "react-scroll";
-import { useLocation } from "react-router-dom";
 
 const APIURL = "http://localhost:5001/api/books";
 
 function Content() {
-  const [book, setBook] = useState({});
+  const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [wordsPerPage] = useState(500);
 
-  const location = useLocation();
-  const bookId = location.state.bookId;
-
-  console.log(bookId);
   useEffect(() => {
-    getBook(APIURL + `/${bookId}`);
-  }, [bookId]);
+    getBooks(APIURL);
+  }, []);
 
-  async function getBook(url) {
+  async function getBooks(url) {
     const resp = await fetch(url);
     const respData = await resp.json();
 
     console.log(respData);
 
-    setBook(respData);
+    setBooks(respData);
   }
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
-    animateScroll.scrollToTop();
+    animateScroll.scrollToTop(); // Chuyển đến đầu trang với hiệu ứng scroll mượt mà
   };
 
   const handlePrevPage = () => {
     setCurrentPage(currentPage - 1);
-    animateScroll.scrollToTop();
+    animateScroll.scrollToTop(); // Chuyển đến đầu trang với hiệu ứng scroll mượt mà
   };
 
   const indexOfLastWord = currentPage * wordsPerPage;
   const indexOfFirstWord = indexOfLastWord - wordsPerPage;
-  const currentWords = book.description
-    ?.split(" ")
+  const currentWords = books
+    .map((book) => book.description)
+    .join(" ")
+    .split(" ")
     .slice(indexOfFirstWord, indexOfLastWord);
 
-  const renderBook = book.description ? (
-    <React.Fragment>
-      <div className="">
-        <div className="book-title">{book.title}</div>
-        <div className="book-content">
-          {currentWords && (
-            <div>
-              {ReactHtmlParser(currentWords.join(" ").replaceAll("\\n", "\n"))}
-            </div>
-          )}
+  const renderBooks = currentWords
+    .join(" ")
+    .split("\n\n")
+    .map((content, index) => (
+      <React.Fragment key={index}>
+        <div className="">
+          <div className="book-title">{books[0]?.title}</div>
+          <div className="book-content">
+            <div>{ReactHtmlParser(content)}</div>
+          </div>
         </div>
-      </div>
-    </React.Fragment>
-  ) : (
-    <div>Loading...</div>
-  );
+      </React.Fragment>
+    ));
 
   return (
     <div className="bg-container">
-      <div id="book">{renderBook}</div>
+      <div id="book">{renderBooks}</div>
       <div className="pagination">
         <button
           className="btn-next"
           onClick={handlePrevPage}
-          disabled={currentPage === 1 || !book.description}
+          disabled={currentPage === 1}
         >
           Previous
         </button>
         <button
           className="btn-next"
           onClick={handleNextPage}
-          disabled={
-            !book.description ||
-            currentWords.length < wordsPerPage ||
-            currentWords.length === book.description.split(" ").length
-          }
+          disabled={currentWords.length < wordsPerPage}
         >
           Next
         </button>

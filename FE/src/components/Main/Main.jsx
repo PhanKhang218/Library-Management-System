@@ -19,8 +19,8 @@ function Main(props) {
 
     setBook(respData);
   }
-  const handleClick = () => {
-    navigate("book-content");
+  const handleClick = (bookId) => {
+    navigate(`/main/book-content/${bookId}`, { state: { bookId } });
   };
 
   return (
@@ -28,7 +28,7 @@ function Main(props) {
       <div id="main">
         {books.map((book) => (
           <div key={book.id} className="movie">
-            <img src={book.image} onClick={() => handleClick()} />
+            <img src={book.image} onClick={() => handleClick(book.id)} />
             <div className="movie-info">
               <h3>{book.title}</h3>
             </div>

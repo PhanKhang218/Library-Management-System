@@ -12,7 +12,7 @@ const publicRoutes = [
   { path: "/", component: Login },
   { path: "/register", component: RegisterForm },
   { path: "/trailer", component: Trailer },
-  { path: "/main/book-content", component: Content },
+  { path: "/main/book-content/:bookId", component: Content },
 ];
 
 const privateRoutes = [];

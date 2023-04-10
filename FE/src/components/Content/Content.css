@@ -5,7 +5,6 @@
 }
 
 body {
-  background-image: url("/FE/public/img/banner2.jpg");
   font-family: "Poppins", sans-serif;
   margin: 0;
 }
@@ -18,7 +17,6 @@ body {
   text-align: justify;
 }
 .bg-container {
-  background-image: url("/FE/public/img/banner2.jpg");
   height: 100vh; /* thay đổi chiều cao tùy ý */
 }
 .book-title {
