@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../Sidebar/Sidebar";
+import { useAlert } from "react-alert";
+
 import "./Dashboard.css";
 
 export default function Dashboard() {
   const [account, setAccount] = useState({});
+  const alert = useAlert();
   const navigate = useNavigate();
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("account"));
     setAccount({ ...user });
@@ -17,36 +20,39 @@ export default function Dashboard() {
   const handleClicktoTrailer = () => {
     navigate("/movie");
   };
+  const handleClickToLogOut = () => {
+    navigate("/");
+    alert.success("Đăng xuất thành công");
+  };
   return (
-    <div>
+    <div className="dashboard-home">
       <div className="dashboard">
         <center>
           <div
             style={{
               fontSize: "32px",
-              marginTop: "10px",
+              paddingTop: "10px",
               fontFamily: "sans-serif",
             }}
           >
-            Hello{" "}
-            <strong>
-              {user}!<i class="bx bx-smile"></i>
-            </strong>
+            Hi <strong>{user}!</strong>
           </div>
 
           <div
             style={{
-              fontSize: "28px",
-              paddingBottom: "10px",
+              fontWeight: "bold",
+              fontSize: "26px",
+              margin: "10px",
             }}
           >
-            Select the service you want to use
+            SELECT THE SERVICE YOU WANT TO USE
           </div>
         </center>
 
         <div className="wrap">
           <div className="btn-book" style={{ marginRight: "10px" }}>
             <button
+              className="click-me"
               style={{
                 fontWeight: "bold",
                 fontSize: "16px",
@@ -61,6 +67,7 @@ export default function Dashboard() {
 
           <div className="btn-movie">
             <button
+              className="click-me"
               style={{
                 fontWeight: "bold",
                 fontSize: "16px",
@@ -73,9 +80,11 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
-
-        {/* <Sidebar /> */}
-        {/* <Main /> */}
+        <div className="div-logout">
+          <button className="logout" onClick={() => handleClickToLogOut()}>
+            Đăng Xuất
+          </button>
+        </div>
       </div>
     </div>
   );

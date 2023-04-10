@@ -49,7 +49,16 @@ function Content() {
   const renderBook = book.description ? (
     <React.Fragment>
       <div className="">
-        <div className="book-title">{book.title}</div>
+        <div className="book-title" style={{ color: "#f7930f" }}>
+          {book.title}
+        </div>
+        <div className="book-author" style={{ paddingBottom: "20px" }}>
+          Author: <strong>{book.author_name}</strong>
+        </div>
+
+        <div className="book-cate" style={{ paddingBottom: "70px" }}>
+          Category: <strong>{book.category_name}</strong>
+        </div>
         <div className="book-content">
           {currentWords && (
             <div>
@@ -64,7 +73,7 @@ function Content() {
   );
 
   const handleClick = () => {
-    navigate("/main");
+    navigate("/book");
   };
 
   return (
@@ -72,14 +81,14 @@ function Content() {
       <div id="book">{renderBook}</div>
       <div className="pagination">
         <button
-          className="btn-next"
+          className="btn-next btn-primary"
           onClick={handlePrevPage}
           disabled={currentPage === 1 || !book.description}
         >
           Previous
         </button>
         <button
-          className="btn-next"
+          className="btn-next btn-primary"
           onClick={handleNextPage}
           disabled={
             !book.description ||
@@ -89,7 +98,7 @@ function Content() {
         >
           Next
         </button>
-        <button className="btn-back" onClick={() => handleClick()}>
+        <button className="btn-back btn-primary" onClick={() => handleClick()}>
           Back
         </button>
       </div>

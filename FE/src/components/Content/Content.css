@@ -11,7 +11,7 @@ body {
 
 #book {
   padding-top: 100px;
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   font-size: 30px;
   text-align: justify;
@@ -30,7 +30,74 @@ body {
   margin-top: 20px;
   text-align: center;
 }
-.btn-next {
+
+.btn-primary {
+  appearance: button;
+  background-color: #1899d6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 19px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.btn-primary:after {
+  background-clip: padding-box;
+  background-color: #1cb0f6;
+  background-color: #f7930f;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.btn-primary:main,
+.btn-primary:focus {
+  user-select: auto;
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.btn-primary:disabled {
+  cursor: auto;
+}
+
+.btn-primary:active:after {
+  border-width: 0 0 0px;
+}
+
+button:active {
+  padding-bottom: 10px;
+}
+/* .btn-next {
   font-weight: bold;
 }
 
@@ -42,7 +109,7 @@ body {
 }
 .btn-back:hover {
   background-color: #ff6651;
-}
+} */
 p {
   padding: 20px;
 }

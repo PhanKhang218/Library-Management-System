@@ -42,7 +42,7 @@ function Trailer() {
               paddingTop: "20px",
             }}
           >
-            {"Overview: " + movie.overview}
+            <strong>Overview: </strong> {movie.overview}
           </p>
         </>
       )}
